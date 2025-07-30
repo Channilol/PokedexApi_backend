@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Qy0CrUprgCM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\fcann\\Documents\\Workbench\\pokemon-api\\PokemonApi\\PokemonApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fcann\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.7\\microsoft.aspnetcore.openapi.9.0.7.nupkg.sha512",
+    "C:\\Users\\fcann\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
