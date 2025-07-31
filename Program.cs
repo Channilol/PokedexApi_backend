@@ -21,6 +21,12 @@ builder.Services.AddOpenApi();
 // e mantenerli in memoria per prestazioni ottimali
 builder.Services.AddSingleton<IPokemonService, PokemonService>();
 
+// Registra HttpClient per chiamate HTTP esterne
+builder.Services.AddHttpClient();
+
+// Registra il servizio per le abilità come Singleton con caching
+builder.Services.AddSingleton<IAbilityService, AbilityService>();
+
 // Configura CORS (Cross-Origin Resource Sharing) per permettere al frontend React di accedere alla nostra API
 // Senza questa configurazione, i browser bloccherebbero le richieste dal frontend per motivi di sicurezza
 // ATTENZIONE: Questa configurazione è permissiva ed è adatta solo per sviluppo
@@ -214,6 +220,38 @@ app.MapGet("/api/pokemon/search", async (IPokemonService pokemonService, string?
 })
 .WithName("SearchPokemon")           // Nome generico che riflette la flessibilità dell'endpoint
 .WithOpenApi();                     // Documentazione con schema per query parameters opzionali
+
+// Endpoint per ottenere la descrizione di un'abilità Pokemon
+// Accetta l'URL dell'abilità come parametro di query e restituisce la descrizione in inglese
+// Esempio: GET /api/ability/description?url=https://pokeapi.co/api/v2/ability/65/
+app.MapGet("/api/ability/description", async (IAbilityService abilityService, string url) =>
+{
+    try
+    {
+        // Validazione dell'URL
+        if (string.IsNullOrWhiteSpace(url))
+            return Results.BadRequest("Ability URL is required");
+
+        // Ottiene la descrizione dell'abilità
+        var abilityDescription = await abilityService.GetAbilityDescriptionAsync(url);
+
+        // Se l'abilità non viene trovata o non ha descrizione in inglese
+        if (abilityDescription == null)
+            return Results.NotFound("Ability description not found or not available in English");
+
+        return Results.Ok(abilityDescription);
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(
+            title: "Error retrieving ability description",
+            detail: ex.Message,
+            statusCode: 500
+        );
+    }
+})
+.WithName("GetAbilityDescription")
+.WithOpenApi();
 
 // Avvia l'applicazione e inizia ad ascoltare le richieste HTTP
 // Questo è un metodo bloccante che mantiene l'applicazione in esecuzione

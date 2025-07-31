@@ -63,12 +63,18 @@ public class PokemonService : IPokemonService
 
             // Configura le opzioni di deserializzazione per gestire
             // le differenze tra convenzioni di naming JSON e C#
+            // Nel metodo LoadPokemonDataAsync, sostituisci la sezione delle JsonSerializerOptions con questa:
+
+            // Configura le opzioni di deserializzazione con il converter personalizzato per gli sprite
             var jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,  // Gestisce variazioni nel casing
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,  // Converte snake_case a PascalCase
                 AllowTrailingCommas = true,  // Permette virgole finali nel JSON
-                ReadCommentHandling = JsonCommentHandling.Skip  // Ignora eventuali commenti nel JSON
+                ReadCommentHandling = JsonCommentHandling.Skip,  // Ignora eventuali commenti nel JSON
+
+                // Aggiunge il converter personalizzato per mappare gli sprite da Showdown
+                Converters = { new ShowdownSpritesConverter() }
             };
 
             // Deserializza il JSON nel formato Dictionary<string, Pokemon>

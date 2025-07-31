@@ -43,4 +43,5 @@ public interface IPokemonService
     /// Esempi di tipi validi: "fire", "water", "grass", "electric", ecc.
     /// </summary>
     Task<List<Pokemon>> GetPokemonByType(string type);
+
 }
