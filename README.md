@@ -46,7 +46,7 @@ dotnet restore
 dotnet run
 ```
 
-L'applicazione si avvierà tipicamente sulla porta 5001 per HTTPS e 5000 per HTTP. Una volta avviata, potrai accedere alla documentazione interattiva dell'API visitando `https://localhost:5001/openapi` nel tuo browser.
+L'applicazione si avvierà tipicamente sulla porta 5026 per HTTPS e 5000 per HTTP. Una volta avviata, potrai accedere alla documentazione interattiva dell'API visitando `https://localhost:5026/openapi` nel tuo browser.
 
 ## 📚 Documentazione API
 
@@ -57,7 +57,7 @@ L'applicazione si avvierà tipicamente sulla porta 5001 per HTTPS e 5000 per HTT
 Restituisce la lista completa di tutti i Pokemon ordinati per ID numerico. Questo endpoint utilizza il lazy loading, quindi la prima richiesta potrebbe richiedere alcuni secondi per caricare tutti i dati, mentre le richieste successive saranno praticamente istantanee.
 
 ```bash
-curl -X GET "https://localhost:5001/api/pokemon"
+curl -X GET "https://localhost:5026/api/pokemon"
 ```
 
 La risposta include tutti i dettagli di ogni Pokemon: informazioni di base come nome e ID, statistiche complete, tipi, abilità e collegamenti agli sprite delle immagini.
@@ -69,7 +69,7 @@ La risposta include tutti i dettagli di ogni Pokemon: informazioni di base come 
 Recupera i dettagli completi di un Pokemon specifico utilizzando il suo ID numerico. Se il Pokemon richiesto non esiste, l'endpoint restituisce appropriatamente un errore 404 Not Found.
 
 ```bash
-curl -X GET "https://localhost:5001/api/pokemon/25"
+curl -X GET "https://localhost:5026/api/pokemon/25"
 ```
 
 Questo endpoint è ottimizzato per prestazioni massime utilizzando lookup diretti nel dictionary interno, garantendo tempi di risposta costanti indipendentemente dall'ID richiesto.
@@ -81,7 +81,7 @@ Questo endpoint è ottimizzato per prestazioni massime utilizzando lookup dirett
 Ottiene tutti i Pokemon appartenenti a una generazione specifica. Le generazioni sono numerate da 1 a 9, seguendo la classificazione ufficiale dei giochi Pokemon.
 
 ```bash
-curl -X GET "https://localhost:5001/api/pokemon/generation/1"
+curl -X GET "https://localhost:5026/api/pokemon/generation/1"
 ```
 
 La logica di appartenenza alla generazione è basata sui range di ID Pokemon ufficiali, garantendo accuratezza completa nella classificazione. Se viene richiesta una generazione inesistente, l'endpoint restituisce 404 Not Found.
@@ -94,21 +94,21 @@ Permette ricerche flessibili utilizzando parametri di query opzionali per nome e
 
 **Ricerca per Nome Solo**
 ```bash
-curl -X GET "https://localhost:5001/api/pokemon/search?name=pika"
+curl -X GET "https://localhost:5026/api/pokemon/search?name=pika"
 ```
 
 Trova tutti i Pokemon il cui nome contiene la stringa specificata, utilizzando ricerca case-insensitive per massima usabilità.
 
 **Ricerca per Tipo Solo**
 ```bash
-curl -X GET "https://localhost:5001/api/pokemon/search?type=fire"
+curl -X GET "https://localhost:5026/api/pokemon/search?type=fire"
 ```
 
 Restituisce tutti i Pokemon che possiedono il tipo specificato come tipo primario o secondario.
 
 **Ricerca Combinata (Logica AND)**
 ```bash
-curl -X GET "https://localhost:5001/api/pokemon/search?name=char&type=fire"
+curl -X GET "https://localhost:5026/api/pokemon/search?name=char&type=fire"
 ```
 
 Quando entrambi i parametri sono forniti, l'API utilizza logica AND per trovare Pokemon che soddisfano entrambi i criteri simultaneamente, offrendo risultati più specifici e utili.
@@ -147,7 +147,7 @@ L'API è progettata per integrazione seamless con applicazioni frontend moderne.
 // Esempio di utilizzo con fetch API in JavaScript
 const getPokemonByGeneration = async (generation) => {
   try {
-    const response = await fetch(`https://localhost:5001/api/pokemon/generation/${generation}`);
+    const response = await fetch(`https://localhost:5026/api/pokemon/generation/${generation}`);
     if (!response.ok) {
       throw new Error(`Generation ${generation} not found`);
     }
