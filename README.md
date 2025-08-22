@@ -33,7 +33,7 @@ L'editor consigliato è Visual Studio Code con l'estensione "C# Dev Kit" per un'
 Clona il repository sulla tua macchina locale usando Git, poi naviga nella cartella del progetto. Il processo di setup è progettato per essere il più semplice possibile.
 
 ```bash
-git clone https://github.com/tuousername/pokemon-api.git
+git clone https://github.com/Channilol/PokedexApi_backend.git
 cd pokemon-api
 ```
 
